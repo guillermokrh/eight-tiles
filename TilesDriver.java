@@ -24,13 +24,16 @@ public class TilesDriver {
         newGame.printGameInformation();
         newGame.chooseGameBoardOption();
 
+        newGame.numberOfMoves = 1;
         System.out.println("Initial board is: ");
+        System.out.println(newGame.numberOfMoves + ".");
         newGame.gameBoard.printBoard();
+        System.out.println("Heuristic Value: " + newGame.gameBoard.getHeuristicValue());
         newGame.playGame();
     }
 
     public void playGame(){
-        numberOfMoves = 0; //initialize number of moves to 0
+        //numberOfMoves = 0; //initialize number of moves to 0
 
         char userChoice;
         int numberToMove;
@@ -39,7 +42,7 @@ public class TilesDriver {
         Scanner userInput = new Scanner(System.in);
 
 
-        while (true) {
+        while (!gameBoard.isGameOver()) {
             userChoice = userInput.next().charAt(0);
             posOfEmptySpace = gameBoard.getPositionOfNumber(0);
 
@@ -52,17 +55,26 @@ public class TilesDriver {
             }
 
             numberToMove = Character.getNumericValue(userChoice);
-            System.out.println("user choice: " + numberToMove);
+            //System.out.println("user choice: " + numberToMove);
             posOfNumberToMove = gameBoard.getPositionOfNumber(numberToMove);
-            System.out.println("position of user choice: " + posOfNumberToMove);
+            //System.out.println("position of user choice: " + posOfNumberToMove);
             if (gameBoard.isPossibleMove(posOfNumberToMove) == true){
-                System.out.println("Move is possible.");
+                System.out.println("Piece to Move: " + numberToMove);
+                gameBoard.makeMove(numberToMove);
+                gameBoard.setHeuristicValue(); //set new heuristic
+                numberOfMoves++;
+
+                System.out.println(numberOfMoves + ".");
+                gameBoard.printBoard();
+                System.out.println("Heuristic Value: " + gameBoard.getHeuristicValue());
             } else {
-                System.out.println("Move is not possible.");
+                System.out.println("*** Invalid Move, Please Retry.");
             }
             //otherwise, we know we are not dealing with x or s
 
         }
+
+        System.out.println("Game Over! Done!");
 
     }
 

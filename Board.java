@@ -84,12 +84,24 @@ public class Board {
         return heuristicAccumulation;
     }
 
+    public boolean isGameOver(){
+        if (this.calculateHeuristicValue() == 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public int[] getBoard() {
         return board;
     }
 
     public int getHeuristicValue() {
         return heuristicValue;
+    }
+
+    public void setHeuristicValue(){
+        heuristicValue = this.calculateHeuristicValue();
     }
 
     public int getPositionOfNumber(int value) {
@@ -115,6 +127,15 @@ public class Board {
             }
         }
         return false;
+    }
+
+    public void makeMove(int numberToMove){
+        int currentEmptySpace = this.getPositionOfNumber(0);
+        int getPositionOfNumber = this.getPositionOfNumber(numberToMove);
+
+        board[getPositionOfNumber] = 0;
+        board[currentEmptySpace] = numberToMove;
+
     }
 
     public int findRowDistance(){

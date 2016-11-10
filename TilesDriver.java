@@ -26,10 +26,44 @@ public class TilesDriver {
 
         System.out.println("Initial board is: ");
         newGame.gameBoard.printBoard();
+        newGame.playGame();
     }
 
     public void playGame(){
-       numberOfMoves = 0; //initialize number of moves to 0
+        numberOfMoves = 0; //initialize number of moves to 0
+
+        char userChoice;
+        int numberToMove;
+        int posOfNumberToMove;
+        int posOfEmptySpace;
+        Scanner userInput = new Scanner(System.in);
+
+
+        while (true) {
+            userChoice = userInput.next().charAt(0);
+            posOfEmptySpace = gameBoard.getPositionOfNumber(0);
+
+            if (userChoice == 'x') {
+                System.out.println("Exiting Program");
+                return; //finish game
+            } else if (userChoice == 's'){
+                System.out.println("Solving Automatically... Placeholder");
+                return;
+            }
+
+            numberToMove = Character.getNumericValue(userChoice);
+            System.out.println("user choice: " + numberToMove);
+            posOfNumberToMove = gameBoard.getPositionOfNumber(numberToMove);
+            System.out.println("position of user choice: " + posOfNumberToMove);
+            if (gameBoard.isPossibleMove(posOfNumberToMove) == true){
+                System.out.println("Move is possible.");
+            } else {
+                System.out.println("Move is not possible.");
+            }
+            //otherwise, we know we are not dealing with x or s
+
+        }
+
     }
 
     public void printAuthorInformation(){

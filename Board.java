@@ -92,7 +92,7 @@ public class Board {
         return heuristicValue;
     }
 
-    public int getPositionOfValue(int value) {
+    public int getPositionOfNumber(int value) {
         //return BOARDSIZE;
         for (int i = 0; i < Constants.BOARD_SIZE; i++){
             if (board[i] == value){
@@ -107,6 +107,15 @@ public class Board {
     4 5 6
     7 8 0
      */
+    public boolean isPossibleMove(int index){
+        int currentEmptySpace = this.getPositionOfNumber(0);
+        for (int i = 0; i < Constants.POSSIBLE_MOVES[currentEmptySpace].length; i++){
+            if (Constants.POSSIBLE_MOVES[currentEmptySpace][i] == index){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public int findRowDistance(){
         return 0;

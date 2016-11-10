@@ -21,7 +21,7 @@ public class Board {
     //custom board
     public Board(String input){
         //BOARDSIZE = 9;
-        board = new int[9];
+        board = new int[Constants.BOARD_SIZE];
         initializeCustomBoard(input);
         heuristicValue = calculateHeuristicValue();
     }
@@ -30,7 +30,7 @@ public class Board {
     public void initializeCustomBoard(String input){
 
         char currChar;
-        for (int i = 0; i < 9; i++){
+        for (int i = 0; i < Constants.BOARD_SIZE; i++){
             currChar = input.charAt(i);
             board[i] = Character.getNumericValue(currChar);
         }
@@ -45,10 +45,10 @@ public class Board {
         generateRandom.setSeed(System.currentTimeMillis());
 
         int boardIndex = -1;
-        for (int i = 0; i < 9; i++){
-            boardIndex = generateRandom.nextInt(9);
+        for (int i = 0; i < Constants.BOARD_SIZE; i++){
+            boardIndex = generateRandom.nextInt(Constants.BOARD_SIZE);
             while (board[boardIndex] != -1){
-                boardIndex = generateRandom.nextInt(9);
+                boardIndex = generateRandom.nextInt(Constants.BOARD_SIZE);
                 //System.out.println("Board index: " + boardIndex);
             }
             board[boardIndex] = i; //once the index at the board is -1, set the number
@@ -64,7 +64,7 @@ public class Board {
         int finalRow;
         int finalCol;
         int heuristicAccumulation = 0;
-        for (int i = 0; i < 9; i++){
+        for (int i = 0; i < Constants.BOARD_SIZE; i++){
 
             currentValue = board[i];
             currentRow = i/3; //rows 0-2
@@ -92,9 +92,15 @@ public class Board {
         return heuristicValue;
     }
 
-    //public int getBOARDSIZE() {
+    public int getPositionOfValue(int value) {
         //return BOARDSIZE;
-    //}
+        for (int i = 0; i < Constants.BOARD_SIZE; i++){
+            if (board[i] == value){
+                return i;
+            }
+        }
+        return -1; //if value not found, returns a negative 1
+    }
 
     /*
     1 2 3  [[2,2], [0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2], [2, 0], [2, 1]]
@@ -113,7 +119,7 @@ public class Board {
     @Override
     public String toString(){
         String boardString = "";
-        for (int i = 0; i < 9; i++){
+        for (int i = 0; i < Constants.BOARD_SIZE; i++){
             if (board[i] == 0){ //if the space is occupied by a 0
                 boardString = boardString + " " + " "; //do not print the board number, print a space
             } else {

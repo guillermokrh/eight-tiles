@@ -9,6 +9,7 @@ public class TilesDriver {
     private Board gameBoard;
     private Board bestBoard;
     private boolean isSolved;
+    private int numberOfMoves;
 
     //Empty constructor for the board
     public TilesDriver(){
@@ -25,6 +26,10 @@ public class TilesDriver {
 
         System.out.println("Initial board is: ");
         newGame.gameBoard.printBoard();
+    }
+
+    public void playGame(){
+       numberOfMoves = 0; //initialize number of moves to 0
     }
 
     public void printAuthorInformation(){
